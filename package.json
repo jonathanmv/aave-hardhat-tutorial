@@ -1,0 +1,22 @@
+{
+  "name": "hardhat-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "local:network": "ganache --wallet.seed jonathanmv",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy:local": "npm run deploy -- --network local",
+    "deploy:goerli": "npm run deploy -- --network goerli"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "dotenv": "^16.0.3",
+    "ganache": "^7.7.3",
+    "hardhat": "^2.12.6",
+    "tiny-invariant": "^1.3.1"
+  }
+}
