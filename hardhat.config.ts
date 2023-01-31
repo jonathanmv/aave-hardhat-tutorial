@@ -1,4 +1,5 @@
 import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-deploy";
 import invariant from "tiny-invariant";
 import { HardhatUserConfig } from "hardhat/config";
 
@@ -21,6 +22,14 @@ const config: HardhatUserConfig = {
       url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_KEY}`,
       accounts: [GOERLI_PRIVATE_KEY]
     }
+  },
+  external: {
+    contracts: [
+      {
+        artifacts: "node_modules/@aave/deploy-v3/artifacts",
+        deploy: "node_modules/@aave/deploy-v3/dist/deploy"
+      }
+    ]
   }
 };
 

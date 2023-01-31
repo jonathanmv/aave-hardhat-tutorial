@@ -1,3 +1,9 @@
+# Aave v3 Playground
+
+I want to test the Aave v3 protocol. I'm deploying it to a local network following [these instructions](https://github.com/aave/aave-v3-deploy#how-to-integrate-in-your-hardhat-project).
+
+When tests run, they will use the local network. There are 2 local networks, though. The Hardhat one and the Ganache one. Tests use the Hardhat one. You can use the Ganache one to deploy the contracts. See the NPM Scripts section below for more info.
+
 # Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
