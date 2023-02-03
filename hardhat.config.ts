@@ -1,10 +1,10 @@
+import dotenv from "dotenv";
+dotenv.config();
 import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-deploy";
 import invariant from "tiny-invariant";
 import { HardhatUserConfig } from "hardhat/config";
-
-import dotenv from "dotenv";
-dotenv.config();
+import { DEFAULT_NAMED_ACCOUNTS } from "@aave/deploy-v3";
 
 const ALCHEMY_KEY = process.env.ALCHEMY_KEY;
 invariant(ALCHEMY_KEY, "ALCHEMY_KEY env variable not found. Add it to the .env file.");
@@ -22,6 +22,9 @@ const config: HardhatUserConfig = {
       url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_KEY}`,
       accounts: [GOERLI_PRIVATE_KEY]
     }
+  },
+  namedAccounts: {
+    ...DEFAULT_NAMED_ACCOUNTS
   },
   external: {
     contracts: [
