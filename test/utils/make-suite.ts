@@ -8,7 +8,9 @@ import {
   WETH9,
   evmRevert,
   evmSnapshot,
+  getWETH,
 } from "@aave/deploy-v3";
+import invariant from "tiny-invariant";
 
 type TestEnv = {
   oracle: AaveOracle;
@@ -22,17 +24,25 @@ const testEnv: TestEnv = {
 };
 
 export async function initializeMakeSuite() {
+  console.log(`Loading pool data provider from ${POOL_DATA_PROVIDER}`);
   const dataProviderArtifact = await deployments.get(POOL_DATA_PROVIDER);
   testEnv.helpersContract = (await ethers.getContractAt(
     dataProviderArtifact.abi,
     dataProviderArtifact.address
   )) as AaveProtocolDataProvider;
 
+  console.log(`Loading oracle from ${ORACLE_ID}`);
   const priceOracleArtifact = await deployments.get(ORACLE_ID);
   testEnv.oracle = (await ethers.getContractAt(
     priceOracleArtifact.abi,
     priceOracleArtifact.address
   )) as AaveOracle;
+
+  console.log(`Loading WETH`);
+  const reservesTokens = await testEnv.helpersContract.getAllReservesTokens();
+  const wethAddress = reservesTokens.find(({ symbol }) => symbol === "WETH");
+  invariant(wethAddress, `WETH token not found in reservesTokens`)
+  testEnv.weth = await getWETH(wethAddress.tokenAddress);
 }
 
 let HardhatSnapshotId: string = "0x1";
