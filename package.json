@@ -6,7 +6,7 @@
   "scripts": {
     "test": "hardhat test",
     "local:network": "ganache --wallet.seed jonathanmv",
-    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy": "hardhat deploy",
     "deploy:local": "npm run deploy -- --network local",
     "deploy:goerli": "npm run deploy -- --network goerli"
   },

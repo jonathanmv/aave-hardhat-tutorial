@@ -22,22 +22,17 @@ const testEnv: TestEnv = {
 };
 
 export async function initializeMakeSuite() {
-  console.log(`Looking for the price oracle artifact at ${ORACLE_ID}`);
-  const priceOracleArtifact = await deployments.get(ORACLE_ID);
-  console.log(
-    `Looking for the data provider artifact at ${POOL_DATA_PROVIDER}`
-  );
   const dataProviderArtifact = await deployments.get(POOL_DATA_PROVIDER);
-
-  console.log(`Looking for the AaveOracle at ${priceOracleArtifact.address}`);
-  testEnv.oracle = (await ethers.getContractAt(
-    "AaveOracle",
-    priceOracleArtifact.address
-  )) as AaveOracle;
   testEnv.helpersContract = (await ethers.getContractAt(
     dataProviderArtifact.abi,
     dataProviderArtifact.address
   )) as AaveProtocolDataProvider;
+
+  const priceOracleArtifact = await deployments.get(ORACLE_ID);
+  testEnv.oracle = (await ethers.getContractAt(
+    priceOracleArtifact.abi,
+    priceOracleArtifact.address
+  )) as AaveOracle;
 }
 
 let HardhatSnapshotId: string = "0x1";
